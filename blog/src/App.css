@@ -1,4 +1,26 @@
-#root {
+body {
+  margin: 0;
+}
+div {
+  box-sizing: border-box;
+}
+
+.list {
+  text-align: left;
+  padding-left: 20px;
+  border-bottom: 1px solid grey;
+}
+
+.black-nav {
+  background: black;
+  width: 100%;
+  display: flex;
+  color: white;
+  padding: 20px;
+}
+
+
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +61,4 @@
 
 .read-the-docs {
   color: #888;
-}
+} */
