@@ -5,7 +5,8 @@ function App() {
   let [select, setSelect] = useState(-1);
   let [제목리스트, 제목리스트변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [따봉수, 따봉수변경] = useState([0, 0, 0]);
-  let [modal, setModal] = useState(true); 
+  let [modal, setModal] = useState(true);
+  let input = ''; 
 
   return (
     <>
@@ -20,7 +21,7 @@ function App() {
       {
        제목리스트.map((a, i) => {
           return (
-            <div className='list'>
+            <div className='list' key={i}>
               <h4 onClick={() => {setModal(!modal); setSelect(i);}}>{제목리스트[i]}
                 <span onClick={(e) => {
                   e.stopPropagation();
@@ -35,11 +36,24 @@ function App() {
         })
       }
 
-
-
       {
         modal ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경}/> : null
       }
+
+      <input onChange={(e) => {
+        input = e.target.value;
+      }}></input>
+    
+      <button onClick={() => {
+        let 뉴제목리스트 = [...제목리스트];
+        뉴제목리스트.unshift(input);       //원본을 바로 바꿈
+        제목리스트변경(뉴제목리스트);
+
+        let 뉴따봉수 = [...따봉수];
+        뉴따봉수.push(0);
+        따봉수변경(뉴따봉수);
+      }}>글 추가하기</button>
+      
         
       </div>
     </>
