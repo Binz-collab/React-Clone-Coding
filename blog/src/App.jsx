@@ -13,7 +13,8 @@ function App() {
           <h4>블로그임</h4>
         </div>
 
-      <button onClick={() => 제목리스트변경(['여자 코트 추천', '강북 냉면 맛집', '리액트 인강'])}>버튼임</button>
+      <button onClick={() => 제목리스트변경(['여자 코트 추천', '강북 냉면 맛집', '리액트 인강'])}>제목변경</button>
+      <button onClick={() => 제목리스트변경([...제목리스트].sort())}>제목정렬</button>
 
 
       <div className='list'>
