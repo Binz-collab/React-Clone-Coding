@@ -22,7 +22,8 @@ function App() {
           return (
             <div className='list'>
               <h4 onClick={() => {setModal(!modal); setSelect(i);}}>{제목리스트[i]}
-                <span onClick={() => {
+                <span onClick={(e) => {
+                  e.stopPropagation();
                   let 뉴따봉수 = [...따봉수];
                   뉴따봉수[i]++;
                   따봉수변경(뉴따봉수);
@@ -33,6 +34,8 @@ function App() {
           )
         })
       }
+
+
 
       {
         modal ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경}/> : null
