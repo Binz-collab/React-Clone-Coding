@@ -23,12 +23,25 @@ function App() {
           return (
             <div className='list' key={i}>
               <h4 onClick={() => {setModal(!modal); setSelect(i);}}>{제목리스트[i]}
-                <span onClick={(e) => {
+
+                <span style={ {"marginLeft" : "5px"} } onClick={(e) => {
                   e.stopPropagation();
                   let 뉴따봉수 = [...따봉수];
                   뉴따봉수[i]++;
                   따봉수변경(뉴따봉수);
                 }}>👍</span> { 따봉수[i] }
+
+                <button style={ {"marginLeft" : "50px"} } onClick={(e) => {
+                  e.stopPropagation();
+                  let 삭제제목리스트 = [...제목리스트];
+                  삭제제목리스트.splice(i, 1);
+                  제목리스트변경(삭제제목리스트);
+
+                  let 삭제따봉수 = [...따봉수];
+                  삭제따봉수.splice(i, 1);
+                  따봉수변경(삭제따봉수);
+                }}>삭제</button>
+
               </h4>
               <p>2월 17일 발행</p>
             </div>
@@ -37,7 +50,7 @@ function App() {
       }
 
       {
-        modal ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경}/> : null
+        modal && (제목리스트.length > 0) ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경}/> : null
       }
 
       <input onChange={(e) => {
@@ -50,7 +63,7 @@ function App() {
         제목리스트변경(뉴제목리스트);
 
         let 뉴따봉수 = [...따봉수];
-        뉴따봉수.push(0);
+        뉴따봉수.unshift(0);
         따봉수변경(뉴따봉수);
       }}>글 추가하기</button>
       
@@ -65,7 +78,7 @@ function Modal(props) {
 
   return (
     <div className='modal'>
-      <h4>{ props.제목[props.i] }</h4>
+      <h4>{ props.i < 0 ? props.제목[0]: props.제목[props.i] }</h4>
       <p>날짜</p>
       <p>설명</p>
 
