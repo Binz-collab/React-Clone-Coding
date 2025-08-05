@@ -2,8 +2,8 @@ import { useState } from 'react';
 import './App.css'
 
 function App() {
-  //const [count, setCount] = useState(0)
-  let [제목리스트, 제목리스트변경] = useState(['남자코드 추천', '강남 우동 맛집', '파이썬 독학']);
+  let [select, setSelect] = useState(-1);
+  let [제목리스트, 제목리스트변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [따봉수, 따봉수변경] = useState([0, 0, 0]);
   let [modal, setModal] = useState(true); 
 
@@ -21,7 +21,7 @@ function App() {
        제목리스트.map((a, i) => {
           return (
             <div className='list'>
-              <h4 onClick={() => setModal(!modal)}>{제목리스트[i]}
+              <h4 onClick={() => {setModal(!modal); setSelect(i);}}>{제목리스트[i]}
                 <span onClick={() => {
                   let 뉴따봉수 = [...따봉수];
                   뉴따봉수[i]++;
@@ -35,7 +35,7 @@ function App() {
       }
 
       {
-        modal ? <Modal 제목={제목리스트} 제목변경={제목리스트변경}/> : null
+        modal ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경}/> : null
       }
         
       </div>
@@ -48,7 +48,7 @@ function Modal(props) {
 
   return (
     <div className='modal'>
-      <h4>{ props.제목[0] }</h4>
+      <h4>{ props.제목[props.i] }</h4>
       <p>날짜</p>
       <p>설명</p>
 
