@@ -35,7 +35,7 @@ function App() {
       }
 
       {
-        modal ? <Modal /> : null
+        modal ? <Modal 제목={제목리스트} 제목변경={제목리스트변경}/> : null
       }
         
       </div>
@@ -44,13 +44,15 @@ function App() {
 }
 
 
-function Modal() {
+function Modal(props) {
 
   return (
     <div className='modal'>
-      <h4>상품명</h4>
+      <h4>{ props.제목[0] }</h4>
       <p>날짜</p>
       <p>설명</p>
+
+      <button onClick={() => props.제목변경(['여자 코트 추천', '강북 냉면 맛집', '리액트 인강'])}>제목변경2</button>
     </div>
   )
 } 
