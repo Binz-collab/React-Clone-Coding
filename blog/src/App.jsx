@@ -15,9 +15,10 @@ function App() {
   let timeString = hours + ':' + minutes  + ':' + seconds;
 
   let [select, setSelect] = useState(-1);
+
   let [제목리스트, 제목리스트변경] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [따봉수, 따봉수변경] = useState([0, 0, 0]);
-  let [modal, setModal] = useState(true);
+
   let [생성날짜, 생성날짜변경] = useState([dateString, dateString, dateString]);
   let [생성시간, 생성시간변경] = useState(([timeString, timeString, timeString]));
   let input = '';
@@ -36,7 +37,20 @@ function App() {
        제목리스트.map((a, i) => {
           return (
             <div className='list' key={i}>
-              <h4 onClick={() => {setModal(!modal); setSelect(i);}}>{제목리스트[i]}
+              <h4 onClick={() => {
+                setSelect(select === i ? -1 : i);
+                }}> {제목리스트[i]}
+                
+              {/* if (select === i) {
+                    setModal(!modal);           // 같은 제목 두 번 클릭 → 모달 토글
+                  }
+                  else {
+                    setSelect(i);               // 다른 제목 클릭 → select 갱신
+                    if (!modal) setModal(true); // 모달이 닫혀있으면 열기
+                  }
+               }}>  */}
+
+                {/* setSelect(i); select === selectBefore ? setModal(!modal) : setSelectBefore(i); */}
 
                 <span style={ {"marginLeft" : "5px"} } onClick={(e) => {
                   e.stopPropagation();
@@ -44,6 +58,7 @@ function App() {
                   뉴따봉수[i]++;
                   따봉수변경(뉴따봉수);
                 }}>👍</span> { 따봉수[i] }
+                
 
                 <button style={ {"marginLeft" : "50px"} } onClick={(e) => {
                   e.stopPropagation();
@@ -72,7 +87,7 @@ function App() {
       }
 
       {
-        modal && (제목리스트.length > 0) ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경} 시간={생성시간}/> : null
+        select >= 0 && (제목리스트.length > 0) ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경} 시간={생성시간}/> : null
       }
 
       <input onChange={(e) => {
