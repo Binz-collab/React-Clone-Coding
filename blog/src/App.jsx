@@ -40,17 +40,6 @@ function App() {
               <h4 onClick={() => {
                 setSelect(select === i ? -1 : i);
                 }}> {제목리스트[i]}
-                
-              {/* if (select === i) {
-                    setModal(!modal);           // 같은 제목 두 번 클릭 → 모달 토글
-                  }
-                  else {
-                    setSelect(i);               // 다른 제목 클릭 → select 갱신
-                    if (!modal) setModal(true); // 모달이 닫혀있으면 열기
-                  }
-               }}>  */}
-
-                {/* setSelect(i); select === selectBefore ? setModal(!modal) : setSelectBefore(i); */}
 
                 <span style={ {"marginLeft" : "5px"} } onClick={(e) => {
                   e.stopPropagation();
@@ -77,6 +66,13 @@ function App() {
                   let 삭제시간 = [...생성시간];
                   삭제시간.splice(i, 1);
                   생성시간변경(삭제시간);
+
+                  // 모달 인덱스 갱신 로직
+                  if (삭제제목리스트.length === 0) {
+                     setSelect(-1); // 리스트가 비면 모달 닫기
+                   } else if (select >= 삭제제목리스트.length) {
+                     setSelect(삭제제목리스트.length - 1); // 마지막 글 삭제 시 이전 글로 이동
+                   }
                 }}>삭제</button>
 
               </h4>
