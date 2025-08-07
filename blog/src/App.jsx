@@ -31,7 +31,17 @@ function App() {
         </div>
 
       <button onClick={() => 제목리스트변경(['여자 코트 추천', '강북 냉면 맛집', '리액트 인강'])}>제목변경</button>
-      <button onClick={() => 제목리스트변경([...제목리스트].sort())}>제목정렬</button>
+      <button onClick={() => { 
+        if (select >= 0) {
+          const currentTitle = 제목리스트[select];
+          const sorted = [...제목리스트].sort();
+          제목리스트변경(sorted); 
+          // 정렬 후 현재 제목의 새 인덱스를 찾아 select 갱신
+          const newIndex = sorted.indexOf(currentTitle);
+          setSelect(newIndex);
+        } else {
+          제목리스트변경([...제목리스트].sort());
+        }}}>제목정렬</button>
 
       {
        제목리스트.map((a, i) => {
