@@ -22,3 +22,16 @@ test('adds a new post', async () => {
   const newPostElement = await screen.findByText(/새로운 포스트 제목/i);
   expect(newPostElement).toBeInTheDocument();
 });
+
+test('changes post titles', async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  const changeButton = screen.getByRole('button', { name: /제목변경/i });
+  await user.click(changeButton);
+
+  const postTitles = screen.getAllByRole('heading', { level: 4 });
+  expect(postTitles[0]).toHaveTextContent('여자 코트 추천');
+  expect(postTitles[1]).toHaveTextContent('강북 냉면 맛집');
+  expect(postTitles[2]).toHaveTextContent('리액트 인강');
+});
