@@ -55,3 +55,24 @@ test('sorts post titles', async () => {
     expect(titleElement).toHaveTextContent(expectedSortedTitles[index]);
   });
 });
+
+test('deletes a post', async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  const postTitleToDelete = '남자 코트 추천';
+  
+  // 1. 삭제할 게시물이 처음에는 화면에 있는지 확인
+  const postElement = screen.getByText(postTitleToDelete);
+  expect(postElement).toBeInTheDocument();
+
+  // 2. 해당 게시물과 관련된 '삭제' 버튼을 찾아서 클릭
+  //    postElement에서 가장 가까운 list div를 찾고, 그 안에서 삭제 버튼을 찾음
+  const postContainer = postElement.closest('.list');
+  const deleteButton = within(postContainer).getByRole('button', { name: /삭제/i });
+  await user.click(deleteButton);
+
+  // 3. 해당 게시물 제목이 더 이상 화면에 없는지 확인
+  const deletedPost = screen.queryByText(postTitleToDelete);
+  expect(deletedPost).not.toBeInTheDocument();
+});
