@@ -76,3 +76,26 @@ test('deletes a post', async () => {
   const deletedPost = screen.queryByText(postTitleToDelete);
   expect(deletedPost).not.toBeInTheDocument();
 });
+
+test('increments like count', async () => {
+  const user = userEvent.setup();
+  render(<App />);
+
+  // 1. '남자 코트 추천' 게시물 컨테이너를 찾는다.
+  const postTitle = screen.getByText(/남자 코트 추천/i);
+  const postContainer = postTitle.closest('.list');
+
+  // 2. 해당 컨테이너 안의 '좋아요' 버튼을 찾는다.
+  const likeButton = within(postContainer).getByText('👍');
+  
+  // 3. 초기 상태를 확인한다 (0).
+  expect(postContainer).toHaveTextContent('👍 0');
+
+  // 4. 버튼을 클릭하고 숫자가 (1)로 바뀌는지 확인한다.
+  await user.click(likeButton);
+  expect(postContainer).toHaveTextContent('👍 1');
+  
+  // 5. 한 번 더 클릭하고 숫자가 (2)로 바뀌는지 확인한다.
+  await user.click(likeButton);
+  expect(postContainer).toHaveTextContent('👍 2');
+});
