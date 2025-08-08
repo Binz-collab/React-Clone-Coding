@@ -1,0 +1,57 @@
+# 워크플로우의 이름
+name: Deploy blog to GitHub Pages
+
+# 언제 이 워크플로우를 실행할지 결정
+on:
+  push:
+    branches:
+      - blog  # 'blog' 브랜치에 push 될 때만 실행
+
+# 워크플로우에 필요한 권한 설정
+permissions:
+  contents: write
+
+# 실제 작업(Job) 정의
+jobs:
+  build-and-deploy:
+    # 작업 이름
+    name: Build and Deploy blog
+    # 작업이 실행될 가상 환경
+    runs-on: ubuntu-latest
+
+    # 작업 단계(Step)들
+    steps:
+      # 1. 소스 코드 가져오기
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      # 2. Node.js 환경 설정 (React 빌드를 위해 필요)
+      - name: Setup Node.js 🟩
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'   # Node.js 버전
+          cache: 'npm'         # npm 캐싱으로 속도 향상
+
+      # 3. 의존성 패키지 설치
+      - name: Install dependencies 📦
+        run: npm ci
+
+      # 4. 프로젝트 빌드 (vite.config.js의 base 설정이 여기서 사용됨)
+      - name: Build project 🏗️
+        # vite.config.js에 base: '/[저장소이름]/[브랜치이름]/' 설정이 되어 있어야 함
+        run: npm run build
+
+      # 5. 빌드 결과물을 gh-pages 브랜치에 배포
+      - name: Deploy to gh-pages 🚀
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # 배포를 위한 인증 토큰
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 배포할 브랜치
+          publish_branch: gh-pages
+          # 배포할 폴더 (빌드 결과물)
+          publish_dir: ./dist
+          # 배포될 목적지 하위 폴더
+          destination_dir: ./blog
+          # 다른 프로젝트 파일을 삭제하지 않고 유지
+          keep_files: true
