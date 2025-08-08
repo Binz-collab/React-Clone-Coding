@@ -37,6 +37,9 @@ jobs:
         run: npm run build
         working-directory: blog
 
+      - name: Check build output
+        run: ls -al blog/dist
+
       - name: Upload artifact ⬆️
         uses: actions/upload-pages-artifact@v3
         with:
