@@ -50,7 +50,7 @@ jobs:
     environment:
       name: github-pages
       # /blog 경로로 접속하도록 URL 포맷 지정
-      url: ${{ steps.deploy-pages.outputs.page_url }}/blog
+      url: ${{ steps.deploy-pages.outputs.page_url }}blog
 
     steps:
       - name: Deploy to GitHub Pages 🚀
