@@ -63,18 +63,3 @@ jobs:
           uses: actions/deploy-pages@v4
           with:
             artifact_name: blog-artifact
-
-      # # 5. 빌드 결과물을 gh-pages 브랜치에 배포
-      # - name: Deploy to gh-pages 🚀
-      #   uses: peaceiris/actions-gh-pages@v4
-      #   with:
-      #     # 배포를 위한 인증 토큰
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     # 배포할 브랜치
-      #     publish_branch: gh-pages
-      #     # 배포할 폴더 (빌드 결과물)
-      #     publish_dir: ./dist
-      #     # 배포될 목적지 하위 폴더
-      #     destination_dir: ./blog
-      #     # 다른 프로젝트 파일을 삭제하지 않고 유지
-      #     keep_files: true
