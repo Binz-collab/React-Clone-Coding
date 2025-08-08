@@ -31,7 +31,7 @@ test('changes post titles', async () => {
   await user.click(changeButton);
 
   const postTitles = screen.getAllByRole('heading', { level: 4 });
-  expect(postTitles[0]).toHaveTextContent('여자 코트 추천');
-  expect(postTitles[1]).toHaveTextContent('강북 냉면 맛집');
-  expect(postTitles[2]).toHaveTextContent('리액트 인강');
+  expect(postTitles[1]).toHaveTextContent('여자 코트 추천');
+  expect(postTitles[2]).toHaveTextContent('강북 냉면 맛집');
+  expect(postTitles[3]).toHaveTextContent('리액트 인강');
 });
