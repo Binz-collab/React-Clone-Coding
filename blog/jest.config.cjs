@@ -5,4 +5,7 @@ module.exports = {
     '\.css$': 'identity-obj-proxy',
     '\.svg$': 'identity-obj-proxy'
   },
+  transform: {
+    '^.+\\.jsx?$': 'babel-jest',
+  },
 };
