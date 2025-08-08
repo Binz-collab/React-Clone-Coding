@@ -43,6 +43,7 @@ function App() {
           제목리스트변경([...제목리스트].sort());
         }}}>제목정렬</button>
 
+      <div data-testid="post-list">
       {
        제목리스트.map((a, i) => {
           return (
@@ -91,6 +92,7 @@ function App() {
           )
         })
       }
+      </div>
 
       {
         select >= 0 && (제목리스트.length > 0) ? <Modal i={select} 제목={제목리스트} 제목변경={제목리스트변경} 시간={생성시간}/> : null
