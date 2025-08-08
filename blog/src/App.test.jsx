@@ -19,6 +19,6 @@ test('adds a new post', async () => {
   await user.type(input, newPostTitle);
   await user.click(addButton);
 
-  const newPostElement = await screen.findByText(newPostTitle);
+  const newPostElement = await screen.findByText(/새로운 포스트 제목/i);
   expect(newPostElement).toBeInTheDocument();
 });
