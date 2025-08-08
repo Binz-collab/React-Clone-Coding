@@ -5,7 +5,7 @@ name: Deploy shop to GitHub Pages
 on:
   push:
     branches:
-      - shop  # 'shop' 브랜치에 push 될 때만 실행
+      - [ shop ]  # 'shop' 브랜치에 push 될 때만 실행
 
 # 워크플로우에 필요한 권한 설정
 permissions:
@@ -23,6 +23,8 @@ jobs:
       # 1. 소스 코드 가져오기
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          ref: shop
 
       # 2. Node.js 환경 설정 (React 빌드를 위해 필요)
       - name: Setup Node.js 🟩
