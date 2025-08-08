@@ -35,3 +35,15 @@ test('changes post titles', async () => {
   expect(postTitles[2]).toHaveTextContent('강북 냉면 맛집');
   expect(postTitles[3]).toHaveTextContent('리액트 인강');
 });
+
+test('sorts post titles', async () => {
+  const user = userEvent.setup();
+  render(<App />);
+  
+  const sortButton = screen.getByRole('button', { name: /제목정렬/i });
+  await user.click(sortButton);
+  const postTitles = screen.getAllByRole('heading', { level: 4 });
+  const sortedTitles = postTitles.map(title => title.textContent);
+  
+  expect(sortedTitles).toEqual(['강북 냉면 맛집', '리액트 인강', '여자 코트 추천']);
+});
