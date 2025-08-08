@@ -60,7 +60,7 @@ test('deletes a post', async () => {
   const user = userEvent.setup();
   render(<App />);
 
-  const postTitleToDelete = '남자 코트 추천';
+  const postTitleToDelete = /남자 코트 추천/i;
   
   // 1. 삭제할 게시물이 처음에는 화면에 있는지 확인
   const postElement = screen.getByText(postTitleToDelete);
