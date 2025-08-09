@@ -19,22 +19,31 @@ jobs:
         with:
           ref: blog
 
+      - name: List files for debug
+        run: ls -alR
+
       - name: Setup Node.js 🟩
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
+          cache-dependency-path: blog/package-lock.json
 
       - name: Install dependencies 📦
         run: npm ci
+        working-directory: blog
 
       - name: Build project 🏗️
         run: npm run build
+        working-directory: blog
+
+      - name: Check build output
+        run: ls -al blog/dist
 
       - name: Upload artifact ⬆️
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: blog/dist
           name: blog-artifact
 
   deploy:
@@ -44,7 +53,7 @@ jobs:
     environment:
       name: github-pages
       # /blog 경로로 접속하도록 URL 포맷 지정
-      url: ${{ steps.deploy-pages.outputs.page_url }}/blog
+      url: ${{ steps.deploy-pages.outputs.page_url }}blog
 
     steps:
       - name: Deploy to GitHub Pages 🚀
