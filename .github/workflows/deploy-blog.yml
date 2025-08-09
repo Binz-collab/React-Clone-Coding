@@ -34,8 +34,9 @@ jobs:
         working-directory: blog
 
       - name: Build project 🏗️
-        run: npm run build
-             cp dist/index.html dist/404.html
+        run: |
+          npm run build
+          cp dist/index.html dist/404.html
         working-directory: blog
 
       - name: Check build output
