@@ -44,7 +44,7 @@ jobs:
     environment:
       name: github-pages
       # /shop 경로로 접속하도록 URL 포맷 지정
-      url: ${{ steps.deploy-pages.outputs.page_url }}shop
+      url: ${{ steps.deploy-pages.outputs.page_url }}
 
     steps:
       - name: Deploy to GitHub Pages 🚀
