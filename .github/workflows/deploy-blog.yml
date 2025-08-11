@@ -27,15 +27,15 @@ jobs:
         with:
           node-version: '20'
           cache: npm
-          cache-dependency-path: blog/package-lock.json
+          cache-dependency-path: ./blog/package-lock.json
 
       - name: Install dependencies 📦
         run: npm ci
-        working-directory: blog
+        working-directory: ./blog
 
       - name: Build project 🏗️
         run: npm run build
-        working-directory: blog
+        working-directory: ./blog
 
       - name: Check build output
         run: ls -al blog/dist
@@ -53,7 +53,7 @@ jobs:
     environment:
       name: github-pages
       # /blog 경로로 접속하도록 URL 포맷 지정
-      url: ${{ steps.deploy-pages.outputs.page_url }}
+      url: ${{ steps.deploy-pages.outputs.page_url }}blog
 
     steps:
       - name: Deploy to GitHub Pages 🚀
