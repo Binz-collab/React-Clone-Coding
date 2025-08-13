@@ -1,5 +1,5 @@
 // import { useState } from 'react'
-import Button from 'react-bootstrap/Button'
+import { Button, Navbar, Container, Nav } from 'react-bootstrap'
 import './App.css'
 
 function App() {
@@ -8,7 +8,17 @@ function App() {
   return (
     <>
       <div className="App">
-        <Button variant="primary"> Bootstrap Button </Button>
+        <Navbar bg="dark" data-bs-theme="dark">
+          <Container fluid>
+            <Navbar.Brand href="#home">🍎 AppleShop</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link href="#pricing">Pricing</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+        
       </div>
     </>
   )
