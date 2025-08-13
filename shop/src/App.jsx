@@ -23,7 +23,10 @@ function App() {
 
         <Container>
           <div className='row text-center'>
-            <div className='col-md-4'>
+            <Card i={1}/>
+            <Card i={2}/>
+            <Card i={3}/>
+            {/* <div className='col-md-4'>
               <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="Product 1" width="80%" />
               <h3>Product 1</h3>
               <p>Description of Product 1</p>
@@ -40,7 +43,7 @@ function App() {
               <h3>Product 3</h3>
               <p>Description of Product 3</p>
               <Button variant="primary">Buy Now</Button>
-            </div>
+            </div> */}
           </div>
         </Container>
         {/* <Container className="mt-5">
@@ -51,6 +54,17 @@ function App() {
         
       </div>
     </>
+  )
+}
+
+function Card(props) {
+  return (
+    <div className='col-md-4'>
+      <img src={`https://codingapple1.github.io/shop/shoes${props.i}.jpg`} alt={`Product ${props.i}`} width="80%" />
+      <h3>Product {props.i}</h3>
+      <p>Description of Product {props.i}</p>
+      <Button variant="primary">Buy Now</Button>
+    </div>
   )
 }
 
