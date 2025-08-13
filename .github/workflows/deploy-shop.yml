@@ -1,3 +1,4 @@
+# 워크플로우 이름
 name: Deploy shop to GitHub Pages
 
 on:
@@ -19,22 +20,31 @@ jobs:
         with:
           ref: shop
 
+      - name: List files for debug
+        run: ls -alR
+
       - name: Setup Node.js 🟩
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
+          cache-dependency-path: shop/package-lock.json
 
       - name: Install dependencies 📦
         run: npm ci
+        working-directory: shop
 
       - name: Build project 🏗️
         run: npm run build
+        working-directory: shop
+
+      - name: Check build output
+        run: ls -al shop/dist
 
       - name: Upload artifact ⬆️
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: shop/dist
           name: shop-artifact
 
   deploy:
@@ -43,8 +53,8 @@ jobs:
 
     environment:
       name: github-pages
-      # /shop 경로로 접속하도록 URL 포맷 지정
-      url: ${{ steps.deploy-pages.outputs.page_url }}shop
+      # 이 URL은 배포 성공 후 표시되는 링크일 뿐, 배포 경로를 지정하지 않습니다.
+      url: ${{ steps.deploy-pages.outputs.page_url }}
 
     steps:
       - name: Deploy to GitHub Pages 🚀
