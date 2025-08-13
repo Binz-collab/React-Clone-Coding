@@ -1,54 +1,61 @@
+# 워크플로우 이름
 name: Deploy shop to GitHub Pages
 
+# 언제 이 워크플로우를 실행할지 결정
 on:
   push:
-    branches: [ shop ]
+    branches:
+      - shop # 'shop' 브랜치에 push 될 때만 실행
 
+# 워크플로우에 필요한 권한 설정
+# gh-pages 브랜치에 push 할 수 있도록 쓰기 권한이 필요합니다.
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
+# 실제 작업(Job) 정의
 jobs:
-  build:
+  build-and-deploy:
+    # 작업 이름
+    name: Build and Deploy shop
+    # 작업이 실행될 가상 환경
     runs-on: ubuntu-latest
 
+    # 작업 단계(Step)들
     steps:
+      # 1. 소스 코드 가져오기
       - name: Checkout 🛎️
         uses: actions/checkout@v4
-        with:
-          ref: shop
 
+      # 2. Node.js 환경 설정
       - name: Setup Node.js 🟩
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: npm
+          # 캐시 대상을 shop 프로젝트의 lock 파일로 정확히 지정
+          cache-dependency-path: ./shop/package-lock.json
 
+      # 3. 의존성 패키지 설치 (shop 폴더로 이동해서 실행)
       - name: Install dependencies 📦
+        working-directory: ./shop
         run: npm ci
 
+      # 4. 프로젝트 빌드 (shop 폴더로 이동해서 실행)
       - name: Build project 🏗️
+        working-directory: ./shop
         run: npm run build
 
-      - name: Upload artifact ⬆️
-        uses: actions/upload-pages-artifact@v3
+      # 5. 빌드 결과물을 gh-pages 브랜치에 배포
+      - name: Deploy to gh-pages branch 🚀
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: ./dist
-          name: shop-artifact
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-
-    environment:
-      name: github-pages
-      # /shop 경로로 접속하도록 URL 포맷 지정
-      url: ${{ steps.deploy-pages.outputs.page_url }}
-
-    steps:
-      - name: Deploy to GitHub Pages 🚀
-        id: deploy-pages
-        uses: actions/deploy-pages@v4
-        with:
-          artifact_name: shop-artifact
+          # 배포를 위한 인증 토큰
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 배포할 브랜치 이름
+          publish_branch: gh-pages
+          # 배포할 폴더 (빌드 결과물 경로)
+          publish_dir: ./shop/dist
+          # 배포될 목적지 하위 폴더 지정
+          destination_dir: ./shop
+          # 다른 프로젝트 파일을 삭제하지 않고 유지
+          keep_files: true
