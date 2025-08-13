@@ -54,7 +54,7 @@ jobs:
     environment:
       name: github-pages
       # 이 URL은 배포 성공 후 표시되는 링크일 뿐, 배포 경로를 지정하지 않습니다.
-      url: ${{ steps.deploy-pages.outputs.page_url }}
+      url: ${{ steps.deploy-pages.outputs.page_url }}shop
 
     steps:
       - name: Deploy to GitHub Pages 🚀
