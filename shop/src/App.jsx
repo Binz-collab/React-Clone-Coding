@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Button, Navbar, Container, Nav } from 'react-bootstrap'
+import { Routes, Route, Link} from 'react-router-dom'
 import './App.css'
+import Detail from './Detail.jsx'
 import data from './data'
 
 function App() {
@@ -14,19 +16,32 @@ function App() {
           <Container fluid>
             <Navbar.Brand href="#home">🍎 AppleShop</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link href="#/">Home</Nav.Link>
+              <Nav.Link href="#detail">Details</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
 
-        <div className='main-bg' />
-
+        <Routes>
+          <Route path="/" element={<Home shoes={shoes}/>} />
+          <Route path="/about" element={<h1>About Page</h1>} />
+          <Route path="/detail" element={<h1><Detail /></h1>} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
+        </Routes>
+        
+      </div>
+    </>
+  )
+}
+function Home(props) {
+  return (
+    <>
+     <div className='main-bg' />
         <Container>
           <div className='row text-center'>
             {
-              shoes.map((shoe, i) => {
+              props.shoes.map((shoe, i) => {
                 return (
                   <Card i={i} shoe={shoe} key={shoe.id} />
                 )
@@ -39,8 +54,6 @@ function App() {
           <p>Your one-stop shop for all things Apple!</p>
           <Button variant="primary">Shop Now</Button>
         </Container> */}
-        
-      </div>
     </>
   )
 }
