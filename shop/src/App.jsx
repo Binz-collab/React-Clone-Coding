@@ -1,9 +1,11 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import { Button, Navbar, Container, Nav } from 'react-bootstrap'
 import './App.css'
+import data from './data'
 
 function App() {
   // const [count, setCount] = useState(0)
+  let [shoes] = useState(data);
 
   return (
     <>
@@ -23,27 +25,13 @@ function App() {
 
         <Container>
           <div className='row text-center'>
-            <Card i={1}/>
-            <Card i={2}/>
-            <Card i={3}/>
-            {/* <div className='col-md-4'>
-              <img src="https://codingapple1.github.io/shop/shoes1.jpg" alt="Product 1" width="80%" />
-              <h3>Product 1</h3>
-              <p>Description of Product 1</p>
-              <Button variant="primary">Buy Now</Button>
-            </div>
-            <div className='col-md-4'>
-              <img src="https://codingapple1.github.io/shop/shoes2.jpg" alt="Product 2" width="80%" />
-              <h3>Product 2</h3>
-              <p>Description of Product 2</p>
-              <Button variant="primary">Buy Now</Button>
-            </div>
-            <div className='col-md-4'>
-              <img src="https://codingapple1.github.io/shop/shoes3.jpg" alt="Product 3" width="80%" />
-              <h3>Product 3</h3>
-              <p>Description of Product 3</p>
-              <Button variant="primary">Buy Now</Button>
-            </div> */}
+            {
+              shoes.map((shoe, i) => {
+                return (
+                  <Card i={i} shoe={shoe} key={shoe.id} />
+                )
+              })
+            }
           </div>
         </Container>
         {/* <Container className="mt-5">
@@ -60,9 +48,15 @@ function App() {
 function Card(props) {
   return (
     <div className='col-md-4'>
-      <img src={`https://codingapple1.github.io/shop/shoes${props.i}.jpg`} alt={`Product ${props.i}`} width="80%" />
-      <h3>Product {props.i}</h3>
-      <p>Description of Product {props.i}</p>
+      <img src={props.shoe.image} alt={`Product ${props.i}`} width="80%" />
+      <h3>{props.shoe.title}</h3>
+      <p>{props.shoe.description}</p>
+      <p>{props.shoe.price.toLocaleString()}원</p>
+      <p>Rating: {props.shoe.rating.rate} ({props.shoe.rating.count} reviews)</p>
+      <Button variant="secondary" className="me-2">View Details</Button>
+      <Button variant="success" className="me-2">Add to Cart</Button>
+      <Button variant="warning" className="me-2">Wishlist</Button>
+      <Button variant="info" className="me-2">Share</Button>
       <Button variant="primary">Buy Now</Button>
     </div>
   )
