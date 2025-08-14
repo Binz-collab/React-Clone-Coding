@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Button, Navbar, Container, Nav } from 'react-bootstrap'
-import { Routes, Route, Link} from 'react-router-dom'
+import { Routes, Route, Link, Outlet} from 'react-router-dom'
 import './App.css'
 import Detail from './Detail.jsx'
+import Event from './Event.jsx'
 import data from './data'
 
 function App() {
@@ -18,15 +19,22 @@ function App() {
             <Nav className="me-auto">
               <Nav.Link href="#/">Home</Nav.Link>
               <Nav.Link href="#detail">Details</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
+              <Nav.Link href="#pricing">Events</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
 
         <Routes>
           <Route path="/" element={<Home shoes={shoes}/>} />
-          <Route path="/about" element={<h1>About Page</h1>} />
+          <Route path="/about" element={<h1>About Page <Outlet></Outlet> </h1>}>
+            <Route path="member" element={<h1>Member Page</h1>} />
+            <Route path="location" element={<h1>Location Page</h1>} />
+          </Route>
           <Route path="/detail" element={<h1><Detail /></h1>} />
+          <Route path="/event" element={<Event />}>
+            <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>} />
+            <Route path="two" element={<p>생일기념 쿠폰받기</p>} />
+          </Route>
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
         
