@@ -30,7 +30,7 @@ function App() {
             <Route path="member" element={<h1>Member Page</h1>} />
             <Route path="location" element={<h1>Location Page</h1>} />
           </Route>
-          <Route path="/detail" element={<h1><Detail /></h1>} />
+          <Route path="/detail" element={<Detail></Detail>} />
           <Route path="/event" element={<Event />}>
             <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>} />
             <Route path="two" element={<p>생일기념 쿠폰받기</p>} />
