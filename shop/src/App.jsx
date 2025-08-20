@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Navbar, Container, Nav } from 'react-bootstrap'
-import { Routes, Route, Link, Outlet} from 'react-router-dom'
+import { Routes, Route, Outlet} from 'react-router-dom'
 import './App.css'
 import Detail from './Detail.jsx'
 import Event from './Event.jsx'
@@ -15,11 +15,11 @@ function App() {
       <div className="App">
         <Navbar bg="dark" data-bs-theme="dark">
           <Container fluid>
-            <Navbar.Brand href="#home">🍎 AppleShop</Navbar.Brand>
+            <Navbar.Brand href="/">🍎 AppleShop</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="#/">Home</Nav.Link>
-              <Nav.Link href="#detail">Details</Nav.Link>
-              <Nav.Link href="#pricing">Events</Nav.Link>
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/detail">Details</Nav.Link>
+              <Nav.Link href="/pricing">Events</Nav.Link>
             </Nav>
           </Container>
         </Navbar>
